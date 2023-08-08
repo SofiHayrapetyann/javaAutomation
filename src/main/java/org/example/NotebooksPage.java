@@ -18,10 +18,11 @@ public class NotebooksPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href,'/en/item/')]"));
         WebElement lastElm = elements.get(elements.size() - 1);
-        JavascriptExecutor ex = (JavascriptExecutor) driver;
-        ex.executeScript("arguments[0].scrollIntoView(true);", lastElm);
+        WebElement l= driver.findElement(By.xpath("//div[@class='toppost']//div[@class='l']"));
+//        JavascriptExecutor ex = (JavascriptExecutor) driver;
+//        ex.executeScript("arguments[0].scrollIntoView(true);", lastElm);
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(lastElm));
+            wait.until(ExpectedConditions.elementToBeClickable(l)).click();
         } catch (ElementClickInterceptedException e) {
             System.out.println("Element is not clickable");
             return false;
