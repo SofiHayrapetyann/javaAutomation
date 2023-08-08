@@ -4,9 +4,13 @@ import org.example.HomePageListAm;
 import org.example.NotebooksPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class ListAmTest {
     WebDriver driver = new ChromeDriver();
@@ -18,7 +22,6 @@ public class ListAmTest {
         homePage.clickElectronics();
         NotebooksPage lastElm = new NotebooksPage(driver);
         Assert.assertTrue(lastElm.isClickable(),"in case of false element is not clickable");
-        Assert.assertTrue();
     }
 
     @AfterClass
