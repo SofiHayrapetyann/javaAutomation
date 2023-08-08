@@ -18,6 +18,7 @@ public class ListAmTest {
         homePage.clickElectronics();
         NotebooksPage lastElm = new NotebooksPage(driver);
         Assert.assertTrue(lastElm.isClickable(),"in case of false element is not clickable");
+        Assert.assertTrue();
     }
 
     @AfterClass
