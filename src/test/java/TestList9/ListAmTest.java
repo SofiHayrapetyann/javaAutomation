@@ -12,12 +12,12 @@ public class ListAmTest {
     WebDriver driver = new ChromeDriver();
 
     @Test
-    public void checkLastElementIsClickable() throws InterruptedException {
+    public void checkLastElementIsClickable() {
         HomePageListAm homePage = new HomePageListAm(driver);
         homePage.openDriver();
         homePage.clickElectronics();
-        NotebooksPage result = new NotebooksPage(driver);
-        Assert.assertTrue(result.isClickable());
+        NotebooksPage lastElm = new NotebooksPage(driver);
+        Assert.assertTrue(lastElm.isClickable());
     }
 
     @AfterClass
