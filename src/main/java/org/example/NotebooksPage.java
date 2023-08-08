@@ -23,7 +23,7 @@ public class NotebooksPage {
         ex.executeScript("arguments[0].scrollIntoView(true);", lastElm);
         try {
             wait.until(ExpectedConditions.elementToBeClickable(lastElm));
-        } catch (ElementClickInterceptedException e) {
+        } catch (TimeoutException e) {
             System.out.println("Element is not clickable");
             return false;
         }
