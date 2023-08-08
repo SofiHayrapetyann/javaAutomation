@@ -14,11 +14,10 @@ public class NotebooksPage {
         this.driver = driver;
     }
 
-    public boolean isClickable() {
+    public boolean checkIfElmisClickable() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href,'/en/item/')]"));
         WebElement lastElm = elements.get(elements.size() - 1);
-//        WebElement l= driver.findElement(By.xpath("//div[@class='toppost']//div[@class='l']")); not clickableElement
         JavascriptExecutor ex = (JavascriptExecutor) driver;
         ex.executeScript("arguments[0].scrollIntoView(true);", lastElm);
         try {
