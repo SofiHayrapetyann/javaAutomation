@@ -12,23 +12,25 @@ import java.time.Duration;
 public class HomePageListAm {
     private final WebDriver driver;
     private final String BASE_URL = "https://www.list.am/";
-    private final String element = "//div[@id='menu']//div/a[text()='Electronics']";
-
     public HomePageListAm(WebDriver driver) {
         this.driver = driver;
     }
+public void changeLanguageToEnglish(){
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    WebElement language = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='bar']//a[@href='/en/']")));
+    language.click();
 
-    public void clickElectronics() {
+}
+    public void hoverAndClick(String category,String  subCategory ,String item) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        WebElement language = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='bar']//a[@href='/en/']")));//change the language
-        language.click();
-        By tabLocator = By.xpath("//div[@id='menu']//div/a[text()='Electronics']");
+        By tabLocator = By.xpath("//div[@id='menu']//div/a[text()='%s']".formatted(category));
         WebElement electronics = driver.findElement(tabLocator);
         Actions actions = new Actions(driver);
         actions.moveToElement(electronics).perform();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='pane']//div//a[text()='Notebooks']"))).click();
-
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(("//div[@id='menu']//div[@class='pane']//b[text()='%s']" +
+                "/following-sibling::div/a[text()='%s']").formatted(subCategory,item)))).click();
     }
+
 
     public void openDriver() {
         driver.get(BASE_URL);

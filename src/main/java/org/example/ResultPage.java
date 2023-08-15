@@ -5,19 +5,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
-public class NotebooksPage {
+public class ResultPage {
     WebDriver driver;
 
-    public NotebooksPage(WebDriver driver) {
+    public ResultPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public boolean checkIfElmisClickable() {
+    public boolean checkIfLastElmisClickable() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        List<WebElement> elements = driver.findElements(By.xpath("//a[contains(@href,'/en/item/')]"));
-        WebElement lastElm = elements.get(elements.size() - 1);
+        WebElement lastElm = driver.findElement(By.xpath("(//div[@class='gl']//a)[last()]"));
         JavascriptExecutor ex = (JavascriptExecutor) driver;
         ex.executeScript("arguments[0].scrollIntoView(true);", lastElm);
         try {
@@ -27,5 +25,9 @@ public class NotebooksPage {
             return false;
         }
         return true;
+    }
+    public void filtersApartments(String category){
+        WebElement buttonOfCategory=driver.findElement(By.xpath("//div[@id='menul']//div//label[text()='%s']".formatted(category)));
+        buttonOfCategory.click();
     }
 }
