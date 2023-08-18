@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ResultPage {
-    WebDriver driver;
+public class ResultPage extends  BasePageList{
+
+  private String xPathOfFieldDropDown="//div[@class='filter']//form//div[text()='%s' ]/following-sibling::div";
+  private String xPathOfInputFilter="//div[@id='menul']//div[@class='at']//div[text()='%s']/following-sibling::div";
 
     public ResultPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public boolean checkIfLastElmisClickable() {
@@ -34,6 +36,26 @@ public class ResultPage {
         WebElement buttonOfCategory = driver.findElement(By.xpath("//div[@id='menul']//div//label[text()='%s']".formatted(category)));
         buttonOfCategory.click();
     }
+    public void chooseDropDownField(String nameOfDropDownFile,String nameOfLocation) throws InterruptedException {
+        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(3));
+        WebElement buttonOfDropDownField= driver.findElement(By.xpath(xPathOfFieldDropDown.formatted(nameOfDropDownFile)));
+        wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(buttonOfDropDownField,(By.xpath(".//div[@class='me']")))).click();
+        buttonOfDropDownField.findElement(By.xpath(".//div[contains(@class,'l')]/div[contains(text(),'%s')]".formatted(nameOfLocation))).click();
+    }
+    public void addInputFilter(String inputFilter,String inputFrom,String inputTo){
+      WebElement inputField= driver.findElement(By.xpath(xPathOfInputFilter.formatted(inputFilter)));
+      WebElement input1=inputField.findElement(By.xpath(".//input[1]"));
+      input1.sendKeys(inputFrom);
+      WebElement input2=inputField.findElement(By.xpath(".//input[2]"));
+      input2.sendKeys(inputTo);
+    }
+
+    public void check(String locationName){
+        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(3));
+        WebElement buttonOfLocation= wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='filter']//form//div[text()='%s' ]/following-sibling::div")));
+        buttonOfLocation.click();
+
+    }
 
     public List<WebElement> getAllItems() {
         List<WebElement> itemsOfApartment = driver.findElements(By.xpath("//a[contains(@href,'/item/')]"));
@@ -50,6 +72,5 @@ public class ResultPage {
         List<WebElement> itemsOfApartment = driver.findElements(By.xpath("//a[contains(@href,'/item/')]"));
         WebElement labelToDelete = new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfNestedElementLocatedBy(itemsOfApartment.get(4), By.xpath(".//div[@class='clabel']")));
         js.executeScript("arguments[0].remove()", labelToDelete);
-
     }
 }

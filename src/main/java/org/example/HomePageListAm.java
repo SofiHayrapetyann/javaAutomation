@@ -9,12 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePageListAm {
-    private final WebDriver driver;
+public class HomePageListAm extends BasePageList {
     private final String BASE_URL = "https://www.list.am/";
 
     public HomePageListAm(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void changeLanguageToEnglish() {
@@ -35,7 +34,7 @@ public class HomePageListAm {
     }
 
 
-    public void openDriver() {
+    public void open() {
         driver.get(BASE_URL);
         driver.manage().window().maximize();
     }

@@ -2,7 +2,6 @@ package TestList9;
 
 import org.example.CardItem;
 import org.example.HomePageListAm;
-import org.example.ItemsOfApartment;
 import org.example.ResultPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +20,7 @@ public class ListAmTest {
     @Test
     public void checkLastElementIsClickable() {
         HomePageListAm homePage = new HomePageListAm(driver);
-        homePage.openDriver();
+        homePage.open();
         homePage.changeLanguageToEnglish();
         homePage.hoverAndClick("Electronics", "Computers", "Notebooks");
         ResultPage lastElm = new ResultPage(driver);
@@ -31,15 +30,25 @@ public class ListAmTest {
     @Test
     public void checkIfAgencyLabelIsMissingOnItem() throws InterruptedException {
         HomePageListAm homePage = new HomePageListAm(driver);
-        homePage.openDriver();
+        homePage.open();
         homePage.changeLanguageToEnglish();
         homePage.hoverAndClick("Real Estate", "For Rent", "Apartments");
         ResultPage resultPage = new ResultPage(driver);
         resultPage.filtersApartments("Agency");
         resultPage.elementToRemove();
-        CardItem items = new CardItem();
-        Assert.assertTrue(items.isLabelPresent(resultPage.getAllItems()), items.getTextOfDescription());
+        Assert.assertTrue(CardItem.isLabelPresent(resultPage.getAllItems()), items.getTextOfDescription());
 
+    }
+    @Test
+    public void checkIfSomeFiltersWorkRight() throws InterruptedException {
+        HomePageListAm homePage=new HomePageListAm(driver);
+        homePage.open();
+        homePage.changeLanguageToEnglish();
+        homePage.hoverAndClick("Electronics","Computers","Notebooks");
+        ResultPage resultPage=new ResultPage(driver);
+        resultPage.chooseDropDownField("Location","Kentron");
+        resultPage.chooseDropDownField("Currency","AMD");
+        resultPage.addInputFilter("Price","200000","500000");
     }
 
     @AfterClass

@@ -7,11 +7,22 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class CardItem {
-    private final By labelElm = By.xpath(".//div[@class='clabel']");
-    String textOfDescription;
+    private static final By labelElm = By.xpath(".//div[@class='clabel']");
+    static String textOfDescription;
+    public CardItem(WebElement element){
 
-    public boolean isLabelPresent(List<WebElement> itemsOfApartment) {
-        int a = 0;
+    }
+    public void checkSomeConditions(WebElement elm){
+       WebElement locationOfElm= elm.findElement(By.xpath(".//div[@class='at']"));
+       WebElement priceOfElm=elm.findElement(By.xpath(".//div[@class='p']"));
+        String location=locationOfElm.getText().split(",")[0];
+        String[] stringOfPrice=priceOfElm.getText().split(" ")[0].split(",");
+        int price=Integer.parseInt(stringOfPrice[0]+stringOfPrice[1]);
+        String currency=priceOfElm.getText().split(" ")[1];
+
+    }
+
+    public static boolean isLabelPresent(List<WebElement> itemsOfApartment) {
         for (WebElement elm : itemsOfApartment) {
             WebElement agencyLabel;
             WebElement descriptionOfElm = elm.findElement(By.xpath(".//div[@class='l']"));
@@ -26,7 +37,7 @@ public class CardItem {
         return true;
     }
 
-    public String getTextOfDescription() {
-        return textOfDescription;
-    }
+//    public String getTextOfDescription() {
+//        return textOfDescription;
+//    }
 }
