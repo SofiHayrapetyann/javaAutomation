@@ -1,6 +1,8 @@
 package TestList9;
 
+import org.example.CardItem;
 import org.example.HomePageListAm;
+import org.example.ItemsOfApartment;
 import org.example.ResultPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -34,22 +36,9 @@ public class ListAmTest {
         homePage.hoverAndClick("Real Estate", "For Rent", "Apartments");
         ResultPage resultPage = new ResultPage(driver);
         resultPage.filtersApartments("Agency");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        List<WebElement> itemsOfApartment = driver.findElements(By.xpath("//a[contains(@href,'/item/')]"));
-        Thread.sleep(2000);
-        WebElement labelToDelete=new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfNestedElementLocatedBy(itemsOfApartment.get(4),By.xpath(".//div[@class='clabel']")));
-        js.executeScript("arguments[0].remove()", labelToDelete);
-        for (WebElement elm : itemsOfApartment) {
-            WebElement agencyLabel;
-            WebElement descriptionOfElm = elm.findElement(By.xpath(".//div[@class='l']"));
-            String textOfDescription = descriptionOfElm.getText();
-            try {
-                agencyLabel = elm.findElement(By.xpath(".//div[@class='clabel']"));
-            } catch (NoSuchElementException e) {
-                throw new NoSuchElementException("No such Element Exception" + textOfDescription);
-            }
-            Assert.assertEquals(agencyLabel.getText(), "Agency", textOfDescription + "This element does not contain Agency label");
-        }
+        resultPage.elementToRemove();
+        CardItem items = new CardItem();
+        Assert.assertTrue(items.isLabelPresent(resultPage.getAllItems()), items.getTextOfDescription());
 
     }
 
