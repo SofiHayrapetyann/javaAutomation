@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class ResultPage extends BasePageList {
-   private static final By ITEMS= By.xpath("//a[contains(@href,'/item/')]");
+    private static final By ITEMS = By.xpath("//a[contains(@href,'/item/')]");
 
     private final String xPathOfFieldDropDown = "//div[@class='filter']//form//div[text()='%s' ]/following-sibling::div";
     private final String xPathOfInputFilter = "//div[@id='menul']//div[@class='at']//div[text()='%s']/following-sibling::div";

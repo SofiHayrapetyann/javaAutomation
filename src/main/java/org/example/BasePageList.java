@@ -12,6 +12,7 @@ public class BasePageList {
         this.driver = driver;
 
     }
+
     public void open() {
         driver.get(BASE_URL);
         driver.manage().window().maximize();

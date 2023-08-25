@@ -38,10 +38,10 @@ public class ListAmTest {
         resultPage.elementToRemove();
         for (CardItem item : resultPage.getAllItems()) {
             String descriptionOfElm = item.description.getText();
-            if(item.label==null)
-                throw new NoSuchElementException(descriptionOfElm +"There is no label");
+            if (item.label == null)
+                throw new NoSuchElementException(descriptionOfElm + "There is no label");
 
-        softAssert.assertEquals(item.label.getText(),"Agency","The label is missing"+descriptionOfElm);
+            softAssert.assertEquals(item.label.getText(), "Agency", "The label is missing" + descriptionOfElm);
         }
         softAssert.assertAll();
 
@@ -71,7 +71,6 @@ public class ListAmTest {
 
         }
     }
-
 
 
 }
