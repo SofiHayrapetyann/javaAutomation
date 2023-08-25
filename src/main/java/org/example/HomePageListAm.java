@@ -34,8 +34,5 @@ public class HomePageListAm extends BasePageList {
     }
 
 
-    public void open() {
-        driver.get(BASE_URL);
-        driver.manage().window().maximize();
-    }
+
 }
