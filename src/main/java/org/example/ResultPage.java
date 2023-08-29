@@ -1,16 +1,16 @@
 package org.example;
 
+import list.components.CardItem;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public class ResultPage extends BasePageList {
+public class ResultPage extends BasePageList<ResultPage> {
     private static final By ITEMS = By.xpath("//a[contains(@href,'/item/')]");
 
     private final String xPathOfFieldDropDown = "//div[@class='filter']//form//div[text()='%s' ]/following-sibling::div";
@@ -18,6 +18,17 @@ public class ResultPage extends BasePageList {
 
     public ResultPage(WebDriver driver) {
         super(driver);
+    }
+    @Override
+    protected void load(){
+        open();
+    }
+    @Override
+    protected void isLoaded(){
+        if(driver.findElements(ITEMS).size()==0){
+            throw new Error("The page is not loaded");
+        }
+
     }
 
     public boolean checkIfLastElmisClickable() {
@@ -48,14 +59,16 @@ public class ResultPage extends BasePageList {
         Thread.sleep(3000);
     }
 
-    public void addInputFilter(String inputFilter, String inputFrom, String inputTo) {
+    public void addInputFilter(String inputFilter, String inputFrom, String inputTo) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement inputField = driver.findElement(By.xpath(xPathOfInputFilter.formatted(inputFilter)));
         WebElement input1 = inputField.findElement(By.xpath(".//input[1]"));
         input1.sendKeys(inputFrom);
         WebElement input2 = inputField.findElement(By.xpath(".//input[2]"));
         input2.sendKeys(inputTo);
-        wait.until(ExpectedConditions.elementToBeClickable(wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(inputField, By.xpath(".//a"))))).click();
+         WebElement button = inputField.findElement(By.xpath(".//a"));
+        Actions actions = new Actions(driver); actions.moveToElement(button).click().build().perform();
+//        wait.until(ExpectedConditions.elementToBeClickable(inputField.findElement( By.xpath(".//a")))).click();
     }
 
 
