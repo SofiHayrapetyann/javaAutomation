@@ -9,17 +9,27 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HomePageListAm extends BasePageList {
+
+
+public class HomePageListAm extends BasePageList<HomePageListAm> {
     private final String BASE_URL = "https://www.list.am/";
+    private static final By ITEMS = By.xpath("//a[contains(@href,'/item/')]");
 
     public HomePageListAm(WebDriver driver) {
         super(driver);
     }
+    public void open() {
 
-    public void changeLanguageToEnglish() {
+        driver.get(BASE_URL);
+        driver.manage().window().maximize();
+    }
+
+    private  void changeLanguagePopUpMenu (String language) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        WebElement language = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='bar']//a[@href='/en/']")));
-        language.click();
+        if (!(language.equals("en") || language.equals("ru") || language.equals("am"))) {
+            throw new IllegalArgumentException("Invalid input: " + language);
+        }
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='dlgLangSel']//a[@href='/%s/']".formatted(language)))).click();
 
     }
 
@@ -32,7 +42,26 @@ public class HomePageListAm extends BasePageList {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(("//div[@id='menu']//div[@class='pane']//b[text()='%s']" +
                 "/following-sibling::div/a[text()='%s']").formatted(subCategory, item)))).click();
     }
+public void changeLanguageTo(String language){
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+if(wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("dlgLangSel"))).size()!=0){
+    changeLanguagePopUpMenu(language);
+
+}
+    }
+@Override
+protected void load(){
+        open();
+        changeLanguageTo("en");
+
+}
+@Override
+    protected void isLoaded(){
+        if(!driver.getCurrentUrl().equals(BASE_URL+ "en/")){
+            throw new Error("The page is not loaded");
+        }
 
 
+}
 
 }
