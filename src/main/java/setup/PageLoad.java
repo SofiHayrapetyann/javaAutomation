@@ -8,17 +8,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static setup.DriverHelper.getDriver;
 
-public class PageLoad {
-    public static PageLoad pageLoad() {
-        PageLoad pageLoad = new PageLoad();
-        return pageLoad;
-    }
+
+//public class PageLoad {
+//    public static PageLoad pageLoad() {
+//        PageLoad pageLoad = new PageLoad();
+//        return pageLoad;
+//    }
 
 //    public PageLoad isElementClickable(By by) {
 //        try {
-//            new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
+//            new WebDriverWait(driver.get(), Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
 //            return this;
 //        } catch (WebDriverException e) {
 //        }
@@ -32,4 +32,4 @@ public class PageLoad {
 //        }
 //        return null;
 //    }
-}
+//}

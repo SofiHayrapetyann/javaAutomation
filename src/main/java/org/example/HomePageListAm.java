@@ -9,12 +9,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+
+
 public class HomePageListAm extends BasePageList<HomePageListAm> {
     private final String BASE_URL = "https://www.list.am/";
     private static final By ITEMS = By.xpath("//a[contains(@href,'/item/')]");
 
     public HomePageListAm(WebDriver driver) {
         super(driver);
+    }
+    public void open() {
+        driver.get(BASE_URL);
     }
 
     private  void changeLanguagePopUpMenu (String language) {
@@ -46,15 +51,14 @@ if(wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("dlgLangSe
 protected void load(){
         open();
         changeLanguageTo("en");
+
 }
 @Override
     protected void isLoaded(){
-        if(driver.findElements(ITEMS).size()==0){
+        if(!driver.getCurrentUrl().equals(BASE_URL+ "en/")){
             throw new Error("The page is not loaded");
         }
-        if(driver.getCurrentUrl().contains(BASE_URL)){
-            throw new Error("The page is not loaded");
-        }
+
 
 }
 

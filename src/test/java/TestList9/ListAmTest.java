@@ -36,6 +36,8 @@ public class ListAmTest extends  BaseTest{
 
     @Test
     public void checkIfSomeFiltersWorkRight() throws InterruptedException {
+        SoftAssert softAssert = new SoftAssert();
+
         HomePageListAm homePage = new HomePageListAm(driver).get();
 
         homePage.hoverAndClick("Electronics", "Computers", "Notebooks");
@@ -47,18 +49,16 @@ public class ListAmTest extends  BaseTest{
         for (CardItem item : resultPage.getAllItems()) {
             String[] stringOfPrice = item.getPrice().getText().split(" ")[0].split(",");
             int price = Integer.parseInt(stringOfPrice[0] + stringOfPrice[1]);
-            Thread.sleep(30000);
-            String currency = item.getPrice().getText().split(" ")[1];
+                    String currency = item.getPrice().getText().split(" ")[1];
             String location = item.getLocation().getText().split(",")[0];
-            SoftAssert softAssert = new SoftAssert();
 
             softAssert.assertEquals(location, "Kentron");
             softAssert.assertEquals(currency, "֏");
             softAssert.assertTrue(price >= 200000 & price <= 500000);
-            softAssert.assertAll();
-
-
+            System.out.println("yhgh");
         }
+        softAssert.assertAll();
+
     }
 
 

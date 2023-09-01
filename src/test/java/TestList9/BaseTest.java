@@ -10,6 +10,7 @@ public class BaseTest {
 
     @BeforeClass
     public void beforeRun() {
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
     @AfterClass

@@ -21,7 +21,7 @@ public class ResultPage extends BasePageList<ResultPage> {
     }
     @Override
     protected void load(){
-        open();
+//        open();
     }
     @Override
     protected void isLoaded(){
@@ -33,9 +33,8 @@ public class ResultPage extends BasePageList<ResultPage> {
 
     public boolean checkIfLastElmisClickable() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-        WebElement lastElm = driver.findElement(By.xpath("(//div[@class='gl']//a)[last()]"));
         JavascriptExecutor ex = (JavascriptExecutor) driver;
+        WebElement lastElm = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//div[@class='gl']//a)[last()]")));
         ex.executeScript("arguments[0].scrollIntoView(true);", lastElm);
         try {
             wait.until(ExpectedConditions.elementToBeClickable(lastElm));
@@ -47,7 +46,8 @@ public class ResultPage extends BasePageList<ResultPage> {
     }
 
     public void filtersApartments(String category) {
-        WebElement buttonOfCategory = driver.findElement(By.xpath("//div[@id='menul']//div//label[text()='%s']".formatted(category)));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebElement buttonOfCategory = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='menul']//div//label[text()='%s']".formatted(category))));
         buttonOfCategory.click();
     }
 
