@@ -19,7 +19,9 @@ public class HomePageListAm extends BasePageList<HomePageListAm> {
         super(driver);
     }
     public void open() {
+
         driver.get(BASE_URL);
+        driver.manage().window().maximize();
     }
 
     private  void changeLanguagePopUpMenu (String language) {

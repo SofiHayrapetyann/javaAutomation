@@ -9,7 +9,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import org.testng.annotations.Test;
 
-public class ListAmTest extends  BaseTest{
+public class ListAmTest extends BaseTest {
     @Test
     public void checkLastElementIsClickable() {
         HomePageListAm homePage = new HomePageListAm(driver).get();
@@ -49,13 +49,12 @@ public class ListAmTest extends  BaseTest{
         for (CardItem item : resultPage.getAllItems()) {
             String[] stringOfPrice = item.getPrice().getText().split(" ")[0].split(",");
             int price = Integer.parseInt(stringOfPrice[0] + stringOfPrice[1]);
-                    String currency = item.getPrice().getText().split(" ")[1];
+            String currency = item.getPrice().getText().split(" ")[1];
             String location = item.getLocation().getText().split(",")[0];
 
             softAssert.assertEquals(location, "Kentron");
             softAssert.assertEquals(currency, "֏");
             softAssert.assertTrue(price >= 200000 & price <= 500000);
-            System.out.println("yhgh");
         }
         softAssert.assertAll();
 

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 
-public abstract class BasePageList<T extends LoadableComponent<T>>extends LoadableComponent<T> {
+public abstract class BasePageList<T extends LoadableComponent<T>> extends LoadableComponent<T> {
     WebDriver driver;
     final static String BASE_URL = "https://www.list.am";
     String footerButton = "//div[@id='pfooter']//div[@class='r']/a[text()='%s']";
@@ -13,7 +13,6 @@ public abstract class BasePageList<T extends LoadableComponent<T>>extends Loadab
     public BasePageList(WebDriver driver) {
         this.driver = driver;
     }
-
 
 
     public void openHelp() {
@@ -27,7 +26,6 @@ public abstract class BasePageList<T extends LoadableComponent<T>>extends Loadab
     public void openTermsOfService() {
         driver.findElement(By.xpath(footerButton.formatted("TermsOfService"))).click();
     }
-
 
 
 }
